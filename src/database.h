@@ -16,7 +16,8 @@ public:
     ///Add a game to the Video Game database.
     bool AddGame(QString gameTitle, QString gamePlatform, QString gameDev, QString gameESRB, QString gamePublisher, int yearOfRelease );
 
-
+    ///Remove a game from the Video Game database
+    bool removeGame(QString gameTitle);
 };
 
 #endif // DATABASE_H

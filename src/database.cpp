@@ -29,7 +29,7 @@ database::database(QString path, QString driver)
 
 /*!
  * \brief database::AddGame
- * Adds new stadium to the database with the following attributes
+ * Adds new game to the database with the following attributes
  * \param gameTitle
  * \param gamePlatform
  * \param gameDev
@@ -49,6 +49,26 @@ bool database::AddGame(QString gameTitle, QString gamePlatform, QString gameDev,
     query.bindValue(":ESRB", gameESRB);
     query.bindValue(":Developer", gameDev);
     query.bindValue(":Publisher", gamePublisher);
+    if(query.exec())
+    {
+        return true;
+    }
+
+    qDebug() << query.lastError().text();
+    return false;
+}
+
+/*!
+ * \brief database::removeGame
+ * Removes game from database based on the following attributes
+ * \param gameTitle
+ * \return
+ */
+bool database::removeGame(QString gameTitle)
+{
+    QSqlQuery query;
+    query.prepare("DELETE FROM VideoGames WHERE Title = ?");
+    query.addBindValue(gameTitle);
     if(query.exec())
     {
         return true;
