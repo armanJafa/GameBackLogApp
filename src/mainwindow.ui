@@ -23,6 +23,7 @@
    <property name="autoFillBackground">
     <bool>false</bool>
    </property>
+   <layout class="QVBoxLayout" name="verticalLayout"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

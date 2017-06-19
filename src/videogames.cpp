@@ -37,7 +37,7 @@ QString VideoGames::GetPublisher()
 
 int VideoGames::GetYearOfRelease()
 {
-    return YearOfRelease();
+    return yearOfRelease;
 }
 
 void VideoGames::SetTitle(QString newTitle)
@@ -67,5 +67,5 @@ void VideoGames::SetPublisher(QString newPublisher)
 
 void VideoGames::SetYearOfRelease(QString newYearOfRelease)
 {
-    yearOfRelease = newYearOfRelease;
+    yearOfRelease = newYearOfRelease.toInt();
 }
