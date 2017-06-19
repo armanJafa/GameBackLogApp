@@ -27,12 +27,20 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     videogames.cpp \
+
+    tableview.cpp
+
     database.cpp
+
 
 HEADERS += \
         mainwindow.h \
     videogames.h \
+
+    tableview.h
     database.h
 
+
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    maintableview.ui
