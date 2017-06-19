@@ -43,4 +43,4 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui \
-    maintableview.ui \
+    maintableview.ui 
