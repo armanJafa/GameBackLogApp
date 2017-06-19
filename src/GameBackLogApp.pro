@@ -30,7 +30,7 @@ SOURCES += \
 
     tableview.cpp \
 
-    database.cpp
+    database.cpp \
 
 
 HEADERS += \
