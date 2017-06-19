@@ -28,7 +28,7 @@ SOURCES += \
         mainwindow.cpp \
     videogames.cpp \
 
-    tableview.cpp
+    tableview.cpp \
 
     database.cpp
 
@@ -37,10 +37,10 @@ HEADERS += \
         mainwindow.h \
     videogames.h \
 
-    tableview.h
-    database.h
+    tableview.h \
+    database.h \
 
 
 FORMS += \
         mainwindow.ui \
-    maintableview.ui
+    maintableview.ui \
