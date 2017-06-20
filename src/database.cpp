@@ -82,20 +82,25 @@ bool Database::removeGame(QString gameTitle)
 
 QSqlQuery Database::GetAllGames()
 {
+    qDebug() << "In function GetAllGames";
     QSqlQuery query;
     query.exec("SELECT * FROM VideoGames");
 
-    QSqlQuery debug;
-    debug = query;
+    qDebug() << query.isValid();
+//    QSqlQuery debug;
+//    debug = query;
     int count = 0;
-    while(debug.next())
+
+    while(query.next())
     {
-        qDebug() << "\n Title :" << debug.record().field("Title").value().toString()
-                 << "\n YoR:" << debug.record().field("YearOfRelease").value().toInt()
-                 << "\n Platform:" << debug.record().field("Platform").value().toString()
-                 << "\n ESRB:" << debug.record().field("ESRB").value().toString()
-                 << "\n Developer:" << debug.record().field("Developer").value().toString()
-                 << "\n Publisher:" << debug.record().field("Publisher").value().toString()
+
+        qDebug() << query.isActive() << query.isValid();
+        qDebug() << "\n Title :" << query.record().field("Title").value().toString()
+                 << "\n YoR:" << query.record().field("YearOfRelease").value().toInt()
+                 << "\n Platform:" << query.record().field("Platform").value().toString()
+                 << "\n ESRB:" << query.record().field("ESRB").value().toString()
+                 << "\n Developer:" << query.record().field("Developer").value().toString()
+                 << "\n Publisher:" << query.record().field("Publisher").value().toString()
                  << "\n ---End of Record " << count <<"---";
         count++;
     }
