@@ -1,11 +1,12 @@
 #include "database.h"
 
 /*!
- * \brief database::database
+ * \brief Database::Database
  * \param path Path to SQL database file
  * \param driver QString identifier for the specific flavor of SQL we are using.
+ *        and initializes in inherited class the database
  */
-database::database(QString path, QString driver)
+Database::Database(QString path, QString driver) : QSqlDatabase(addDatabase(driver))
 {
     setHostName("localhost");
     setDatabaseName(path);
@@ -28,7 +29,7 @@ database::database(QString path, QString driver)
 }
 
 /*!
- * \brief database::AddGame
+ * \brief Database::AddGame
  * Adds new game to the database with the following attributes
  * \param gameTitle
  * \param gamePlatform
@@ -38,7 +39,7 @@ database::database(QString path, QString driver)
  * \param yearOfRelease
  * \return true if it worked else false
  */
-bool database::AddGame(QString gameTitle, QString gamePlatform, QString gameDev, QString gameESRB, QString gamePublisher, int yearOfRelease)
+bool Database::AddGame(QString gameTitle, QString gamePlatform, QString gameDev, QString gameESRB, QString gamePublisher, int yearOfRelease)
 {
     QSqlQuery query;
     query.prepare("INSERT INTO VideoGames(Title, YearOfRelease, Platform, ESRB, Developer, Publisher)"
@@ -59,12 +60,12 @@ bool database::AddGame(QString gameTitle, QString gamePlatform, QString gameDev,
 }
 
 /*!
- * \brief database::removeGame
+ * \brief Database::removeGame
  * Removes game from database based on the following attributes
  * \param gameTitle
  * \return
  */
-bool database::removeGame(QString gameTitle)
+bool Database::removeGame(QString gameTitle)
 {
     QSqlQuery query;
     query.prepare("DELETE FROM VideoGames WHERE Title = ?");

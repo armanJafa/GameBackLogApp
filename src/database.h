@@ -4,13 +4,13 @@
 #include <QtSql>
 
 /*!
- * \brief The database class
+ * \brief The Database class
  */
-class database : public QSqlDatabase
+class Database : public QSqlDatabase
 {
 public:
     ///Create database from specified db file and driver
-    database(QString path, QString driver);
+    Database(QString path, QString driver);
 
     // Mutators
     ///Add a game to the Video Game database.

@@ -2,6 +2,9 @@
 #define MAINTABLEVIEW_H
 
 #include <QWidget>
+#include <QVector>
+#include "videogames.h"
+#include "database.h"
 
 #ifndef DEBUG
 #define DEBUG 1
@@ -35,6 +38,10 @@ private slots:
 
 private:
     Ui::MainTableView *ui;
+
+    Database* localDB;
+
+    QVector<VideoGames> uiTableVector;
 };
 
 #endif // MAINTABLEVIEW_H

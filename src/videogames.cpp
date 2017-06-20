@@ -10,6 +10,11 @@ VideoGames::VideoGames()
     yearOfRelease = 0;
 }
 
+VideoGames::~VideoGames()
+{
+
+}
+
 QString VideoGames::GetTitle()
 {
     return title;
