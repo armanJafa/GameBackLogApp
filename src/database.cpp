@@ -1,10 +1,11 @@
 #include "database.h"
 
+
 /*!
  * \brief Database::Database
  * \param path Path to SQL database file
- * \param driver QString identifier for the specific flavor of SQL we are using.
- *        and initializes in inherited class the database
+ * \param driver QString identifier for the specific flavor of SQL we are using
+ * and initializes the driver in inherited class
  */
 Database::Database(QString path, QString driver) : QSqlDatabase(addDatabase(driver))
 {
@@ -77,4 +78,26 @@ bool Database::removeGame(QString gameTitle)
 
     qDebug() << query.lastError().text();
     return false;
+}
+
+QSqlQuery Database::GetAllGames()
+{
+    QSqlQuery query;
+    query.exec("SELECT * FROM VideoGames");
+
+    QSqlQuery debug;
+    debug = query;
+    int count = 0;
+    while(debug.next())
+    {
+        qDebug() << "\n Title :" << debug.record().field("Title").value().toString()
+                 << "\n YoR:" << debug.record().field("YearOfRelease").value().toInt()
+                 << "\n Platform:" << debug.record().field("Platform").value().toString()
+                 << "\n ESRB:" << debug.record().field("ESRB").value().toString()
+                 << "\n Developer:" << debug.record().field("Developer").value().toString()
+                 << "\n Publisher:" << debug.record().field("Publisher").value().toString()
+                 << "\n ---End of Record " << count <<"---";
+        count++;
+    }
+    return query;
 }

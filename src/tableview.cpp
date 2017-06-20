@@ -8,8 +8,10 @@ MainTableView::MainTableView(QWidget *parent) :
     ui->setupUi(this);
 
     //Load in existing database
-    localDB = new Database("GameDB.db", "QSQLITE");
+    localDB = new Database("GameDB_TestRecord.db", "QSQLITE");
 
+    //DEBUG
+    localDB->GetAllGames();
 }
 
 MainTableView::~MainTableView()

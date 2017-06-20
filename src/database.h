@@ -18,6 +18,10 @@ public:
 
     ///Remove a game from the Video Game database
     bool removeGame(QString gameTitle);
+
+    //Accessors
+    ///Return a Query from VideoGames Table
+    QSqlQuery GetAllGames();
 };
 
 #endif // DATABASE_H
