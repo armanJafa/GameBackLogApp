@@ -20,7 +20,7 @@ public:
     void SetDeveloper(QString newDeveloper);           //Sets the developer for a game.
     void SetESRB(QString newESRB);                     //Sets the ESRB of a game
     void SetPublisher(QString newPublisher);           //Sets the publisher of a game.
-    void SetYearOfRelease(QString newYearOfRelease);   //Sets the year of release of a game
+    void SetYearOfRelease(int newYearOfRelease);       //Sets the year of release of a game
 
 private:
     QString title;        //Video Game title

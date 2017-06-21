@@ -2,6 +2,7 @@
 #define DATABASE_H
 
 #include <QtSql>
+#include "videogames.h"
 
 /*!
  * \brief The Database class
@@ -20,8 +21,8 @@ public:
     bool removeGame(QString gameTitle);
 
     //Accessors
-    ///Return a Query from VideoGames Table
-    QSqlQuery GetAllGames();
+    ///Return a QVector of videogames from VideoGames Table
+    QVector<VideoGames> GetAllGames();
 };
 
 #endif // DATABASE_H

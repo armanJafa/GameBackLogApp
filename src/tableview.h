@@ -23,6 +23,8 @@ public:
     explicit MainTableView(QWidget *parent = 0);
     ~MainTableView();
 
+    bool LoadFromExistingDatabase();
+
 private slots:
     /**
      * @brief on_MTV_AddButton_clicked
