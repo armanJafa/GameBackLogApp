@@ -7,11 +7,18 @@ MainTableView::MainTableView(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QString dir = QDir::currentPath();
+    dir.resize(dir.lastIndexOf("/build"));
+    dir+= "/GameBackLogApp/src/database/";
+
     //Load in existing database
-    localDB = new Database("GameDB_TestRecord.db", "QSQLITE");
+    localDB = new Database( dir + "GameDB_TestRecord.db", "QSQLITE");
 
     //DEBUG
     localDB->GetAllGames();
+
+    qDebug() << dir;
+
 }
 
 MainTableView::~MainTableView()
