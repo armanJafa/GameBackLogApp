@@ -82,16 +82,11 @@ bool Database::removeGame(QString gameTitle)
 
 QSqlQuery Database::GetAllGames()
 {
-    qDebug() << "In function GetAllGames";
     QSqlQuery query;
     query.exec("SELECT * From VideoGames");
 
-    qDebug() << query.isValid();
-    qDebug() << query.lastError().text();
-//    QSqlQuery debug;
-//    debug = query;
-    int count = 0;
 
+    int count = 0;
     while(query.next())
     {
 
