@@ -23,7 +23,19 @@ public:
     explicit MainTableView(QWidget *parent = 0);
     ~MainTableView();
 
+    /**
+     * @brief LoadFromExistingDatabase
+     * Checks for an existing database and loads it into a container for runtime operations
+     * Note: Only works for debugging builds
+     * @return bool : success or failed
+     */
     bool LoadFromExistingDatabase();
+
+    /**
+     * @brief UpdateTableView
+     * Repopulates table view with data from uiTableVector;
+     */
+    void UpdateTableView();
 
 private slots:
     /**

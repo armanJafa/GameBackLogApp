@@ -16,6 +16,8 @@ MainTableView::~MainTableView()
 
 bool MainTableView::LoadFromExistingDatabase()
 {
+    bool ok = false;
+
     ///Get local app directory
     QString dir = QDir::currentPath();
     dir.resize(dir.lastIndexOf("/build"));
@@ -26,9 +28,19 @@ bool MainTableView::LoadFromExistingDatabase()
 
     if(localDB->isValid())
     {
-        localDB->GetAllGames();
+        uiTableVector = localDB->GetAllGames();
+        ok = true;
     }
+
+    //Debug
     qDebug() << dir;
+
+    return ok;
+}
+
+void MainTableView::UpdateTableView()
+{
+
 }
 
 void MainTableView::on_MTV_AddButton_clicked()

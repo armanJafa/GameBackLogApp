@@ -90,17 +90,15 @@ QVector<VideoGames> Database::GetAllGames()
     {
         while(query.next())
         {
-            VideoGames* item = new VideoGames();
-            item->SetTitle(query.record().field("Title").value().toString());
-            item->SetYearOfRelease(query.record().field("YearOfRelease").value().toInt());
-            item->SetPlatform(query.record().field("Platform").value().toString());
-            item->SetESRB(query.record().field("ESRB").value().toString());
-            item->SetDeveloper(query.record().field("Developer").value().toString());
-            item->SetPublisher(query.record().field("Publisher").value().toString());
+            VideoGames item;
+            item.SetTitle(query.record().field("Title").value().toString());
+            item.SetYearOfRelease(query.record().field("YearOfRelease").value().toInt());
+            item.SetPlatform(query.record().field("Platform").value().toString());
+            item.SetESRB(query.record().field("ESRB").value().toString());
+            item.SetDeveloper(query.record().field("Developer").value().toString());
+            item.SetPublisher(query.record().field("Publisher").value().toString());
 
             gamesList.push_back(item);
-
-
         }
     }
 
