@@ -6,11 +6,41 @@ MainTableView::MainTableView(QWidget *parent) :
     ui(new Ui::MainTableView)
 {
     ui->setupUi(this);
+
 }
 
 MainTableView::~MainTableView()
 {
     delete ui;
+}
+
+bool MainTableView::LoadFromExistingDatabase()
+{
+    bool ok = false;
+
+    ///Get local app directory
+    QString dir = QDir::currentPath();
+    dir.resize(dir.lastIndexOf("/build"));
+    dir+= "/src/database/";
+
+    //Load in existing database
+    localDB = new Database( dir + "GameDB_TestRecord.db", "QSQLITE");
+
+    if(localDB->isValid())
+    {
+        uiTableVector = localDB->GetAllGames();
+        ok = true;
+    }
+
+    //Debug
+    qDebug() << dir;
+
+    return ok;
+}
+
+void MainTableView::UpdateTableView()
+{
+
 }
 
 void MainTableView::on_MTV_AddButton_clicked()

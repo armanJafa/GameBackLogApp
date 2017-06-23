@@ -10,6 +10,11 @@ VideoGames::VideoGames()
     yearOfRelease = 0;
 }
 
+VideoGames::~VideoGames()
+{
+
+}
+
 QString VideoGames::GetTitle()
 {
     return title;
@@ -65,7 +70,7 @@ void VideoGames::SetPublisher(QString newPublisher)
     publisher = newPublisher;
 }
 
-void VideoGames::SetYearOfRelease(QString newYearOfRelease)
+void VideoGames::SetYearOfRelease(int newYearOfRelease)
 {
     yearOfRelease = newYearOfRelease.toInt();
 }

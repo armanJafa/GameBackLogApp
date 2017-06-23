@@ -2,6 +2,9 @@
 #define MAINTABLEVIEW_H
 
 #include <QWidget>
+#include <QVector>
+#include "videogames.h"
+#include "database.h"
 
 #ifndef DEBUG
 #define DEBUG 1
@@ -20,6 +23,20 @@ public:
     explicit MainTableView(QWidget *parent = 0);
     ~MainTableView();
 
+    /**
+     * @brief LoadFromExistingDatabase
+     * Checks for an existing database and loads it into a container for runtime operations
+     * Note: Only works for debugging builds
+     * @return bool : success or failed
+     */
+    bool LoadFromExistingDatabase();
+
+    /**
+     * @brief UpdateTableView
+     * Repopulates table view with data from uiTableVector;
+     */
+    void UpdateTableView();
+
 private slots:
     /**
      * @brief on_MTV_AddButton_clicked
@@ -35,6 +52,10 @@ private slots:
 
 private:
     Ui::MainTableView *ui;
+
+    Database* localDB;
+
+    QVector<VideoGames> uiTableVector;
 };
 
 #endif // MAINTABLEVIEW_H

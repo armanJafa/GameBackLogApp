@@ -1,11 +1,13 @@
 #include "database.h"
 
+
 /*!
- * \brief database::database
+ * \brief Database::Database
  * \param path Path to SQL database file
- * \param driver QString identifier for the specific flavor of SQL we are using.
+ * \param driver QString identifier for the specific flavor of SQL we are using
+ * and initializes the driver in inherited class
  */
-database::database(QString path, QString driver)
+Database::Database(QString path, QString driver) : QSqlDatabase(addDatabase(driver))
 {
     setHostName("localhost");
     setDatabaseName(path);
@@ -28,7 +30,7 @@ database::database(QString path, QString driver)
 }
 
 /*!
- * \brief database::AddGame
+ * \brief Database::AddGame
  * Adds new game to the database with the following attributes
  * \param gameTitle
  * \param gamePlatform
@@ -38,7 +40,7 @@ database::database(QString path, QString driver)
  * \param yearOfRelease
  * \return true if it worked else false
  */
-bool database::AddGame(QString gameTitle, QString gamePlatform, QString gameDev, QString gameESRB, QString gamePublisher, int yearOfRelease)
+bool Database::AddGame(QString gameTitle, QString gamePlatform, QString gameDev, QString gameESRB, QString gamePublisher, int yearOfRelease)
 {
     QSqlQuery query;
     query.prepare("INSERT INTO VideoGames(Title, YearOfRelease, Platform, ESRB, Developer, Publisher)"
@@ -59,12 +61,12 @@ bool database::AddGame(QString gameTitle, QString gamePlatform, QString gameDev,
 }
 
 /*!
- * \brief database::removeGame
+ * \brief Database::removeGame
  * Removes game from database based on the following attributes
  * \param gameTitle
  * \return
  */
-bool database::removeGame(QString gameTitle)
+bool Database::removeGame(QString gameTitle)
 {
     QSqlQuery query;
     query.prepare("DELETE FROM VideoGames WHERE Title = ?");
@@ -76,4 +78,30 @@ bool database::removeGame(QString gameTitle)
 
     qDebug() << query.lastError().text();
     return false;
+}
+
+QVector<VideoGames> Database::GetAllGames()
+{
+    QVector<VideoGames> gamesList;
+    QSqlQuery query;
+    query.exec("SELECT * From VideoGames");
+
+    if(query.isValid())
+    {
+        while(query.next())
+        {
+            VideoGames item;
+            item.SetTitle(query.record().field("Title").value().toString());
+            item.SetYearOfRelease(query.record().field("YearOfRelease").value().toInt());
+            item.SetPlatform(query.record().field("Platform").value().toString());
+            item.SetESRB(query.record().field("ESRB").value().toString());
+            item.SetDeveloper(query.record().field("Developer").value().toString());
+            item.SetPublisher(query.record().field("Publisher").value().toString());
+
+            gamesList.push_back(item);
+        }
+    }
+
+
+    return gamesList;
 }

@@ -2,15 +2,16 @@
 #define DATABASE_H
 
 #include <QtSql>
+#include "videogames.h"
 
 /*!
- * \brief The database class
+ * \brief The Database class
  */
-class database : public QSqlDatabase
+class Database : public QSqlDatabase
 {
 public:
     ///Create database from specified db file and driver
-    database(QString path, QString driver);
+    Database(QString path, QString driver);
 
     // Mutators
     ///Add a game to the Video Game database.
@@ -18,6 +19,10 @@ public:
 
     ///Remove a game from the Video Game database
     bool removeGame(QString gameTitle);
+
+    //Accessors
+    ///Return a QVector of videogames from VideoGames Table
+    QVector<VideoGames> GetAllGames();
 };
 
 #endif // DATABASE_H
