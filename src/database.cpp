@@ -20,6 +20,7 @@ Database::Database(QString path, QString driver) : QSqlDatabase(addDatabase(driv
 
         //Output the last error message from the database
         qDebug() << "Database opened successfully";
+        qDebug() << this->lastError().text();
     }
     else
     {
