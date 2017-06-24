@@ -15,6 +15,9 @@ Database::Database(QString path, QString driver) : QSqlDatabase(addDatabase(driv
     //If the database successfully opens
     if(open())
     {
+        QSqlQuery create;
+        create.exec("CREATE TABLE VideoGames ( `Title` TEXT, `YearOfRelease` INTEGER, `Platform` TEXT, `ESRB` TEXT, `Developer` TEXT, `Publisher` TEXT )");
+
         //Output the last error message from the database
         qDebug() << "Database opened successfully";
     }

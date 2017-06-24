@@ -5,6 +5,7 @@
 #include <QVector>
 #include "videogames.h"
 #include "database.h"
+#include <QStandardPaths>
 
 #ifndef DEBUG
 #define DEBUG 1
