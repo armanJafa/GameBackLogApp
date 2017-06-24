@@ -72,5 +72,5 @@ void VideoGames::SetPublisher(QString newPublisher)
 
 void VideoGames::SetYearOfRelease(int newYearOfRelease)
 {
-    yearOfRelease = newYearOfRelease.toInt();
+    yearOfRelease = newYearOfRelease;
 }

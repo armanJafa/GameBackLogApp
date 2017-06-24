@@ -7,6 +7,7 @@ MainTableView::MainTableView(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    LoadFromExistingDatabase();
 }
 
 MainTableView::~MainTableView()
@@ -19,12 +20,15 @@ bool MainTableView::LoadFromExistingDatabase()
     bool ok = false;
 
     ///Get local app directory
-    QString dir = QDir::currentPath();
-    dir.resize(dir.lastIndexOf("/build"));
-    dir+= "/src/database/";
+    QString path = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    QDir dir(path);
 
+    if(!dir.exists())
+        dir.mkdir(path);
+
+    path.append("/GameDB.db");
     //Load in existing database
-    localDB = new Database( dir + "GameDB_TestRecord.db", "QSQLITE");
+    localDB = new Database(path, "QSQLITE");
 
     if(localDB->isValid())
     {
@@ -32,8 +36,10 @@ bool MainTableView::LoadFromExistingDatabase()
         ok = true;
     }
 
+
+
     //Debug
-    qDebug() << dir;
+    qDebug() << path;
 
     return ok;
 }
