@@ -16,6 +16,12 @@ MainTableView::MainTableView(QWidget *parent) :
         errorDialog.setIcon(QMessageBox::Warning);
         errorDialog.exec();
     }
+    else
+    {
+        //Updates Table view with data from database
+        UpdateTableView();
+    }
+
 }
 
 MainTableView::~MainTableView()
@@ -53,6 +59,13 @@ bool MainTableView::LoadFromExistingDatabase()
 void MainTableView::UpdateTableView()
 {
 
+    for(int i = 0; i < uiTableVector.size(); i++)
+    {
+        ui->MTV_TableView->model()->insertRow(ui->MTV_TableView->model()->rowCount());
+    }
+
+
+//    ui->MTV_TableView->setCurrentIndex();
 }
 
 void MainTableView::on_MTV_AddButton_clicked()
