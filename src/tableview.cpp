@@ -7,7 +7,15 @@ MainTableView::MainTableView(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    LoadFromExistingDatabase();
+    //If database fails to load, display warning
+    if(!LoadFromExistingDatabase())
+    {
+        QMessageBox errorDialog;
+        errorDialog.setText("Database Failed to Load Correctly!");
+        errorDialog.setInformativeText("The path to database may not exist or be correct.");
+        errorDialog.setIcon(QMessageBox::Warning);
+        errorDialog.exec();
+    }
 }
 
 MainTableView::~MainTableView()
@@ -35,8 +43,6 @@ bool MainTableView::LoadFromExistingDatabase()
         uiTableVector = localDB->GetAllGames();
         ok = true;
     }
-
-
 
     //Debug
     qDebug() << path;

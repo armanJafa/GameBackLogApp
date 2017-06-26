@@ -6,6 +6,7 @@
 #include "videogames.h"
 #include "database.h"
 #include <QStandardPaths>
+#include <QMessageBox>
 
 #ifndef DEBUG
 #define DEBUG 1
