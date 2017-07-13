@@ -20,7 +20,7 @@ Database::Database(QString path, QString driver) : QSqlDatabase(addDatabase(driv
 
         //Output the last error message from the database
         qDebug() << "Database opened successfully";
-        qDebug() << this->lastError().text();
+
     }
     else
     {
@@ -84,16 +84,28 @@ bool Database::removeGame(QString gameTitle)
     return false;
 }
 
+/**
+ * @brief Database::GetAllGames
+ * @return QVector
+ */
 QVector<VideoGames> Database::GetAllGames()
 {
     QVector<VideoGames> gamesList;
     QSqlQuery query;
-    query.exec("SELECT * From VideoGames");
+    query.prepare("SELECT * From VideoGames");
 
-    if(query.isValid())
-    {
+    query.exec();
+
+    //DEBUG
+    qDebug() << query.isActive() << query.isValid() << query.isSelect() << query.size();
+
+    //Check if query is active, initially, cursor is not set to a record
+    if(query.isActive())
+    {        
+        //Move to the next record, first one should be a valid record
         while(query.next())
         {
+            //Propogate data into Videogame
             VideoGames item;
             item.SetTitle(query.record().field("Title").value().toString());
             item.SetYearOfRelease(query.record().field("YearOfRelease").value().toInt());
@@ -102,10 +114,29 @@ QVector<VideoGames> Database::GetAllGames()
             item.SetDeveloper(query.record().field("Developer").value().toString());
             item.SetPublisher(query.record().field("Publisher").value().toString());
 
+            //Pushback onto list
             gamesList.push_back(item);
+
+            //DEBUG
+            qDebug() << "Pushback" << item.GetTitle();
         }
     }
 
-
     return gamesList;
 }
+
+//QSqlTableModel Database::GetAllGames()
+//{
+//    QSqlTableModel model;
+//    model.setTable("employee");
+//    model.setFilter("salary > 50000");
+//    model.setSort(2, Qt::DescendingOrder);
+//    model.select();
+
+//    for (int i = 0; i < model.rowCount(); ++i)
+//    {
+//        QString name = model.record(i).value("name").toString();
+//        int salary = model.record(i).value("salary").toInt();
+//        qDebug() << name << salary;
+//    }
+//}

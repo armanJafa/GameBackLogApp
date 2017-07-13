@@ -56,16 +56,55 @@ bool MainTableView::LoadFromExistingDatabase()
     return ok;
 }
 
+//Force the Table to update and go into No Edit Mode, ReadOnly table
 void MainTableView::UpdateTableView()
 {
+    //Read-only Update
+    ui->MTV_TableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    for(int i = 0; i < uiTableVector.size(); i++)
+    //Hide Vertical Header
+    ui->MTV_TableView->verticalHeader()->setVisible(false);
+
+    //Call ConvertFunction to update the table
+    ui->MTV_TableView->setModel(ConvertToTableModel(uiTableVector));
+
+
+    //Display new stuff
+    ui->MTV_TableView->show();
+
+}
+
+//Takes a Vector of VideoGames and converts it into a TableModel
+QSqlTableModel* MainTableView::ConvertToTableModel(QVector<VideoGames> tableVector)
+{
+
+    QSqlTableModel* model = new QSqlTableModel;
+
+    model->setHeaderData(0, Qt::Orientation::Horizontal, QObject::tr("Title"),0);
+    model->setHeaderData(1, Qt::Orientation::Horizontal, QObject::tr("Year of Release"),0);
+    model->setHeaderData(2, Qt::Orientation::Horizontal, QObject::tr("Platform"),0);
+    model->setHeaderData(3, Qt::Orientation::Horizontal, QObject::tr("ESRB"),0);
+    model->setHeaderData(4, Qt::Orientation::Horizontal, QObject::tr("Developer"),0);
+    model->setHeaderData(5, Qt::Orientation::Horizontal, QObject::tr("Publisher"),0);
+
+    for(int i = 0; i < tableVector.size(); i++)
     {
-        ui->MTV_TableView->model()->insertRow(ui->MTV_TableView->model()->rowCount());
+        //DEBUG
+        qDebug() << tableVector.size() << " Inside for";
+
+        model->insertRows(i, 1);
+        model->setData(model->index(i, 0), tableVector[i].GetTitle());
+        model->setData(model->index(i, 1), tableVector[i].GetYearOfRelease());
+        model->setData(model->index(i, 2), tableVector[i].GetPlatform());
+        model->setData(model->index(i, 3), tableVector[i].GetESRB());
+        model->setData(model->index(i, 4), tableVector[i].GetDeveloper());
+        model->setData(model->index(i, 5), tableVector[i].GetPublisher());
+        model->submitAll();
     }
 
 
-//    ui->MTV_TableView->setCurrentIndex();
+    return model;
+
 }
 
 void MainTableView::on_MTV_AddButton_clicked()

@@ -39,6 +39,14 @@ public:
      */
     void UpdateTableView();
 
+    /**
+     * @brief ConvertToTableModel
+     * Converts a Vector of VideoGames into a table model
+     * @param tableVector
+     * @return QSqlTableModel
+     */
+    QSqlTableModel* ConvertToTableModel(QVector<VideoGames> tableVector);
+
 private slots:
     /**
      * @brief on_MTV_AddButton_clicked

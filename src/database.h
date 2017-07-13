@@ -23,6 +23,9 @@ public:
     //Accessors
     ///Return a QVector of videogames from VideoGames Table
     QVector<VideoGames> GetAllGames();
+
+//    ///Overloaded GetAllGames function, returns a Read-Writeable Table Model
+//    QSqlTableModel GetAllGames();
 };
 
 #endif // DATABASE_H
