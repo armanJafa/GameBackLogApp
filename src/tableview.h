@@ -2,6 +2,7 @@
 #define MAINTABLEVIEW_H
 
 #include <QWidget>
+#include <QTableWidget>
 #include <QVector>
 #include "videogames.h"
 #include "database.h"
@@ -43,9 +44,9 @@ public:
      * @brief ConvertToTableModel
      * Converts a Vector of VideoGames into a table model
      * @param tableVector
-     * @return QSqlTableModel
+     * @return QTableWidget
      */
-    QSqlTableModel* ConvertToTableModel(QVector<VideoGames> tableVector);
+    void ConvertToTableModel(QVector<VideoGames> tableVector);
 
 private slots:
     /**

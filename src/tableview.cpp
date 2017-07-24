@@ -66,8 +66,9 @@ void MainTableView::UpdateTableView()
     ui->MTV_TableView->verticalHeader()->setVisible(false);
 
     //Call ConvertFunction to update the table
-    ui->MTV_TableView->setModel(ConvertToTableModel(uiTableVector));
+    ui->MTV_TableView->clear();
 
+    ConvertToTableModel(uiTableVector);
 
     //Display new stuff
     ui->MTV_TableView->show();
@@ -75,35 +76,49 @@ void MainTableView::UpdateTableView()
 }
 
 //Takes a Vector of VideoGames and converts it into a TableModel
-QSqlTableModel* MainTableView::ConvertToTableModel(QVector<VideoGames> tableVector)
+void MainTableView::ConvertToTableModel(QVector<VideoGames> tableVector)
 {
 
-    QSqlTableModel* model = new QSqlTableModel;
+//    QSqlTableModel* model = new QSqlTableModel;
 
-    model->setHeaderData(0, Qt::Orientation::Horizontal, QObject::tr("Title"),0);
-    model->setHeaderData(1, Qt::Orientation::Horizontal, QObject::tr("Year of Release"),0);
-    model->setHeaderData(2, Qt::Orientation::Horizontal, QObject::tr("Platform"),0);
-    model->setHeaderData(3, Qt::Orientation::Horizontal, QObject::tr("ESRB"),0);
-    model->setHeaderData(4, Qt::Orientation::Horizontal, QObject::tr("Developer"),0);
-    model->setHeaderData(5, Qt::Orientation::Horizontal, QObject::tr("Publisher"),0);
+//    model->setHeaderData(0, Qt::Orientation::Horizontal, QObject::tr("Title"),0);
+//    model->setHeaderData(1, Qt::Orientation::Horizontal, QObject::tr("Year of Release"),0);
+//    model->setHeaderData(2, Qt::Orientation::Horizontal, QObject::tr("Platform"),0);
+//    model->setHeaderData(3, Qt::Orientation::Horizontal, QObject::tr("ESRB"),0);
+//    model->setHeaderData(4, Qt::Orientation::Horizontal, QObject::tr("Developer"),0);
+//    model->setHeaderData(5, Qt::Orientation::Horizontal, QObject::tr("Publisher"),0);
+
+    QStringList stringlist;
+    stringlist << "Title" << "Year of Release" << "Platform" << "ESRB" << "Developer" << "Publisher";
+    ui->MTV_TableView->setHorizontalHeaderLabels(stringlist);
+
 
     for(int i = 0; i < tableVector.size(); i++)
     {
         //DEBUG
         qDebug() << tableVector.size() << " Inside for";
 
-        model->insertRows(i, 1);
-        model->setData(model->index(i, 0), tableVector[i].GetTitle());
-        model->setData(model->index(i, 1), tableVector[i].GetYearOfRelease());
-        model->setData(model->index(i, 2), tableVector[i].GetPlatform());
-        model->setData(model->index(i, 3), tableVector[i].GetESRB());
-        model->setData(model->index(i, 4), tableVector[i].GetDeveloper());
-        model->setData(model->index(i, 5), tableVector[i].GetPublisher());
-        model->submitAll();
+//        model->insertRows(i, 1);
+//        model->setData(model->index(i, 0), tableVector[i].GetTitle());
+//        model->setData(model->index(i, 1), tableVector[i].GetYearOfRelease());
+//        model->setData(model->index(i, 2), tableVector[i].GetPlatform());
+//        model->setData(model->index(i, 3), tableVector[i].GetESRB());
+//        model->setData(model->index(i, 4), tableVector[i].GetDeveloper());
+//        model->setData(model->index(i, 5), tableVector[i].GetPublisher());
+//        model->submitAll();
+
+
+        ui->MTV_TableView->insertRow(i);
+
+        QTableWidgetItem *dataItem = new QTableWidgetItem;
+
+        dataItem->setData(Qt::DisplayRole, tableVector[i].GetTitle());
+        ui->MTV_TableView->setItem(i, 0, dataItem);
+
+        dataItem = new QTableWidgetItem;
+        dataItem->setData(Qt::DisplayRole, tableVector[i].GetYearOfRelease());
+        ui->MTV_TableView->setItem(i, 1, dataItem);
     }
-
-
-    return model;
 
 }
 
